@@ -10,36 +10,47 @@ import java.net.URL;
 import org.json.*;
 
 public class Finance {
+<<<<<<< HEAD
 	private JSONObject json;
 	/**输入url,输出url的查询结果
+=======
+	/**
+	 * 输入url,输出url的查询结果
+	 * 
+>>>>>>> c035dc33e30a909445ab685a17ad7f47cce5b943
 	 * @param urlPath
 	 * @return
 	 * @throws Exception
 	 */
-	private String getJsonString(String urlPath) throws Exception {  
-        URL url = new URL(urlPath);  
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();  
-        connection.connect();  
-        InputStream inputStream = connection.getInputStream();  
-        //对应的字符编码转换  
-        Reader reader = new InputStreamReader(inputStream, "UTF-8");  
-        BufferedReader bufferedReader = new BufferedReader(reader);  
-        String str = null;  
-        StringBuffer sb = new StringBuffer();  
-        while ((str = bufferedReader.readLine()) != null) {  
-            sb.append(str);  
-        }  
-        reader.close();  
-        connection.disconnect();  
-        return sb.toString();  
-    } 
-	/**输入货币种类1和2
-	 * 调用private方法getJsonString
-	 * @param cur1 货币source
-	 * @param cur2 货币to
+	private static String getJsonString(String urlPath) throws Exception {
+		URL url = new URL(urlPath);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.connect();
+		InputStream inputStream = connection.getInputStream();
+		// 对应的字符编码转换
+		Reader reader = new InputStreamReader(inputStream, "UTF-8");
+		BufferedReader bufferedReader = new BufferedReader(reader);
+		String str = null;
+		StringBuffer sb = new StringBuffer();
+		while ((str = bufferedReader.readLine()) != null) {
+			sb.append(str);
+		}
+		reader.close();
+		connection.disconnect();
+		return sb.toString();
+	}
+
+	/**
+	 * 输入货币种类1和2 调用private方法getJsonString
+	 * 
+	 * @param cur1
+	 *            货币source
+	 * @param cur2
+	 *            货币to
 	 * @return json格式的字符串数据
-	 * @throws Exception 
+	 * @throws Exception
 	 */
+<<<<<<< HEAD
 	public String getQueryResultInJasonForm(String cur1 , String cur2) throws Exception{
 		String querystr = "http://api.k780.com:88/?app=finance.rate&scur="+cur1+"&tcur="+cur2+"&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4";
 		return getJsonString(querystr);
@@ -106,6 +117,19 @@ public class Finance {
 		System.out.println(f.getDescription("CAD", "CNY"));
 		System.out.println(f.getRate("CAD", "CNY"));
 		System.out.println(f.getUpdateTime("CAD", "CNY"));
+=======
+	public static String getQueryResult(String cur1, String cur2) throws Exception {
+		String querystr = "http://api.k780.com:88/?app=finance.rate&scur=" + cur1 + "&tcur=" + cur2
+				+ "&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4";
+		return getJsonString(querystr);
+	}
+
+	public static void main(String args[]) throws Exception {
+		String jsonStr = Finance.getQueryResult("CNY", "CAD");
+		System.out.println(jsonStr);
+		JSONObject json = new JSONObject(jsonStr);
+		double rate = Double.valueOf(json.getJSONObject("result").getString("rate"));
+		System.out.println(rate);
+>>>>>>> c035dc33e30a909445ab685a17ad7f47cce5b943
 	}
 }
- 
