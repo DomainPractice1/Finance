@@ -93,6 +93,16 @@ public class Finance {
 		if(needInit(cur1,cur2)) init(cur1,cur2);
 		return json.getJSONObject("result").getString("rate");
 	}
+	/**获取以人民币为基准的汇率
+	 * @param cur1
+	 * @return
+	 * @throws JSONException
+	 * @throws Exception
+	 */
+	public String getRateBasedOnCNY(String cur1) throws JSONException, Exception{
+		if(needInit("CNY",cur1)) init("CNY",cur1);
+		return json.getJSONObject("result").getString("rate");
+	}
 	/**获取转换的两个币种的描述
 	 * @param cur1
 	 * @param cur2
@@ -111,8 +121,11 @@ public class Finance {
 	 */
 	public static void main(String args[]) throws Exception{
 		Finance f = new Finance();
-		System.out.println(f.getDescription("CAD", "CNY"));
+		//System.out.println(f.getQueryResultInJasonForm("CNY", "CAD"));
 		System.out.println(f.getRate("CAD", "CNY"));
-		System.out.println(f.getUpdateTime("CAD", "CNY"));
+		System.out.println(f.getRateBasedOnCNY("CAD"));
+		//System.out.println(f.getDescription("CAD", "CNY"));
+		
+		//System.out.println(f.getUpdateTime("CAD", "CNY"));
 	}
 }
