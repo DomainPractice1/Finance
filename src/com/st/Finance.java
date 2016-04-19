@@ -127,7 +127,30 @@ public class Finance {
 		if(needInit(cur1,cur2)) init(cur1,cur2);
 		return json.getJSONObject("result").getString("ratenm");
 	}
-	
+	/**给出要转换的目标币种cur1，给出要转换的数量，输出该数量的人民币能换成多少cur1货币
+	 * @param cur1
+	 * @param ammount
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws JSONException
+	 * @throws Exception
+	 */
+	public double getMoneyAfterChangeBasedOnCNY(String cur1,double ammount) throws NumberFormatException, JSONException, Exception{
+		double rate = Double.parseDouble(getRateBasedOnCNY(cur1));
+		return rate * ammount;
+	}
+	/**给出要转换的源币种cur1目标币种cur2，给出要转换的数量，输出该数量的cur1能换成多少cur2货币
+	 * @param cur1
+	 * @param ammount
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws JSONException
+	 * @throws Exception
+	 */
+	public double getMoneyAfterChange(String cur1,String cur2,double ammount) throws NumberFormatException, JSONException, Exception{
+		double rate = Double.parseDouble(getRate(cur1,cur2));
+		return rate * ammount;
+	}
 	/**使用样例
 	 * @param args
 	 * @throws Exception
@@ -137,6 +160,8 @@ public class Finance {
 		//System.out.println(f.getQueryResultInJasonForm("CNY", "CAD"));
 		System.out.println(f.getRate("CAD", "CNY"));
 		System.out.println(f.getRateBasedOnCNY("CAD"));
+		System.out.println(f.getMoneyAfterChangeBasedOnCNY("CAD",100));
+		System.out.println(f.getMoneyAfterChange("CNY","CAD",100));
 		//System.out.println(f.getDescription("CAD", "CNY"));
 		
 		//System.out.println(f.getUpdateTime("CAD", "CNY"));
